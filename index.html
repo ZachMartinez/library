@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Readdit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Readdit</h1>
+        <p>A wholesome library app for me and the bois.</p>
+    </header>
+    <main id="root">
+        <section class="modal">
+            <h2>New Book</h2>
+            <form id="newBook">
+                <label>
+                    Title:
+                    <input type="text" name="title">
+                </label>
+                <label>
+                    Author:
+                    <input type="text" name="author">
+                </label>
+                <label>
+                    Pages:
+                    <input type="number" name="pages">
+                </label>
+                <input type="button" value="Add" name="addBook">
+            </form>
+        </section>
+        <section class="library">
+            <h2>Your Library</h2>
+            <table id="books">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Read</th>
+                </tr>
+            </table>
+            <button id="add">New Book</button>
+        </section>
+    </main>
+    <script src='./script.js'></script>
+</body>
+</html>

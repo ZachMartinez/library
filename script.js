@@ -1,11 +1,11 @@
-const myLibrary = {}
+let myLibrary = {}
 
 // Helper functions
 function generateId(length=8) {
    return Math.floor(Math.random() * (10 ** length)) 
 }
 
-// Model functions
+// Model
 function Book({title, author, pages, read, id}) {
     this.title = title
     this.author = author
@@ -17,6 +17,7 @@ function Book({title, author, pages, read, id}) {
 function addBook(obj) {
     let book = new Book(obj)
     myLibrary[book.id] = book
+    saveData()
 }
 
 function removeBook(id) {
@@ -80,19 +81,62 @@ function createTestData() {
 }
 
 function clearData() {
+    myLibrary = {}
     localStorage["myLibrary"] = "{}"
 }
 
-// View functions
+// View
 function setupUI() {
-    let table = document.querySelector('table#books')
+    loadData()
+    loadLibraryTable()
+}
+
+function loadLibraryTable() {
+    let table = document.querySelector('tbody#books')
     let keys = Object.keys(myLibrary)
+    table.innerHTML = ''
     keys.forEach(key => {
         let book = myLibrary[key]
         let row = table.insertRow()
+        row.setAttribute('id', book.id)
         row.insertCell(-1).textContent = book.title
         row.insertCell(-1).textContent = book.author
         row.insertCell(-1).textContent = book.pages
         row.insertCell(-1).textContent = book.read
     })
 }
+
+// Controller code
+function handleSubmitEvent(event) {
+    event.preventDefault()
+    let form = document.forms['book']
+    let newBookData = {
+        title: form.title.value,
+        author: form.author.value,
+        pages: parseInt(form.pages.value)
+    }
+    form.reset()
+    addBook(newBookData)
+    loadLibraryTable()
+}
+
+function handleClearDataButtonClick(event) {
+    if (confirm("Do you want to delete all your books?")) {
+        clearData()
+        loadLibraryTable()
+    }
+}
+
+document.addEventListener('click', (event) => {
+    switch (event.target.id) {
+        case 'clearData':
+            handleClearDataButtonClick(event)
+            break
+        default:
+    }
+})
+
+document.addEventListener('submit', handleSubmitEvent) 
+
+setupUI()
+

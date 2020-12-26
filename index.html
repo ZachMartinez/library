@@ -14,33 +14,40 @@
     <main id="root">
         <section class="modal">
             <h2>New Book</h2>
-            <form id="newBook">
+            <form id="book">
                 <label>
                     Title:
-                    <input type="text" name="title">
+                    <input required type="text" name="title">
                 </label>
                 <label>
                     Author:
-                    <input type="text" name="author">
+                    <input required type="text" name="author">
                 </label>
                 <label>
                     Pages:
-                    <input type="number" name="pages">
+                    <input required type="number" name="pages">
                 </label>
-                <input type="button" value="Add" name="addBook">
+                <input type="submit" value="Add" id="addBook" name="addBook">
             </form>
         </section>
         <section class="library">
             <h2>Your Library</h2>
-            <table id="books">
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Pages</th>
-                    <th>Read</th>
-                </tr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Pages</th>
+                        <th>Read</th>
+                    </tr>
+                </thead>
+                <tbody id="books">
+                </tbody>
             </table>
-            <button id="add">New Book</button>
+            <div>
+                <button id="clearData">Clear Data</button>
+                <button id="newBook">New Book</button>
+            </div>
         </section>
     </main>
     <script src='./script.js'></script>

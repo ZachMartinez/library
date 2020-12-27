@@ -3,53 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Readdit</title>
     <link rel="stylesheet" href="style.css">
+    <title>My Library</title>
 </head>
 <body>
     <header>
-        <h1>Readdit</h1>
-        <p>A wholesome library app for me and the bois.</p>
+        <h1>My Library</h1>
     </header>
-    <main id="root">
-        <section class="modal">
-            <h2>New Book</h2>
-            <form id="book">
-                <label>
-                    Title:
-                    <input required type="text" name="title">
-                </label>
-                <label>
-                    Author:
-                    <input required type="text" name="author">
-                </label>
-                <label>
-                    Pages:
-                    <input required type="number" name="pages">
-                </label>
-                <input type="submit" value="Add" id="addBook" name="addBook">
-            </form>
-        </section>
-        <section class="library">
-            <h2>Your Library</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Pages</th>
-                        <th>Read</th>
-                    </tr>
-                </thead>
-                <tbody id="books">
-                </tbody>
-            </table>
-            <div>
-                <button id="clearData">Clear Data</button>
-                <button id="newBook">New Book</button>
-            </div>
-        </section>
+    <main>
+        <h2>Bookshelf</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Read</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </main>
-    <script src='./script.js'></script>
+    <section hidden>
+        <h2>New book</h2>
+        <form id="newBook">
+            <label>Title: 
+                <input type="text" name="title">
+            </label>
+            <label>Author:
+                <input type="text" name="author">
+            </label>
+            <label>Pages:
+                <input type="number">
+            </label>
+            <label>Read:
+                <input type="checkbox">
+            </label>
+            <input type="submit" value="Add">
+        </form>
+    </section>
+    <script src="script.js"></script>
 </body>
 </html>

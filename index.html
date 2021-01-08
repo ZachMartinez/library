@@ -10,39 +10,56 @@
     <header>
         <h1>My Library</h1>
     </header>
+
     <main>
-        <h2>Bookshelf</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Pages</th>
-                    <th>Read</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <section>
+            <h2>New book</h2>
+
+            <form id="newBook">
+                <label>Title: 
+                    <input type="text" name="title" required>
+                </label>
+            
+                <label>Author:
+                    <input type="text" name="author" required>
+                </label>
+            
+                <label>Pages:
+                    <input type="number" name="pages" required>
+                </label>
+            
+                <label>Read:
+                    <input type="checkbox" name="read">
+                </label>
+            
+                <input type="submit" value="Add">
+                <input type="button" value="Cancel">
+            </form>
+        </section>
+
+        <section>
+            <h2>Bookshelf</h2>
+            
+            <table id="myLibrary">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+            
+                        <th>Author</th>
+            
+                        <th>Pages</th>
+            
+                        <th>Read</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+            <button id="newBookBtn">New Book</button>
+        </section>
     </main>
-    <section hidden>
-        <h2>New book</h2>
-        <form id="newBook">
-            <label>Title: 
-                <input type="text" name="title">
-            </label>
-            <label>Author:
-                <input type="text" name="author">
-            </label>
-            <label>Pages:
-                <input type="number">
-            </label>
-            <label>Read:
-                <input type="checkbox">
-            </label>
-            <input type="submit" value="Add">
-        </form>
-    </section>
+
     <script src="script.js"></script>
 </body>
 </html>

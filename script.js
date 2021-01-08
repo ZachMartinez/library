@@ -71,3 +71,83 @@ function createTestBooks() {
 
     addBooksToLibrary(testBooks)
 }
+
+function renderLibrary(library, targetEl) {
+    targetEl.textContent = ''
+    library.forEach((book, i) => {
+        const row = renderBookRow(book, i)
+        targetEl.appendChild(row)
+    })
+}
+
+function renderBookRow(book, index) {
+    const row = document.createElement('tr')
+    row.insertCell(-1).textContent = book.title
+    row.insertCell(-1).textContent = book.author
+    row.insertCell(-1).textContent = book.pages
+    row.insertCell(-1).append(readIndicator(book.read))
+    row.insertCell(-1).innerHTML = `<button class="deleteBtn">Delete</button>`
+    row.setAttribute('data-index', index)
+    return row
+}
+
+function readIndicator(value) {
+    const el = document.createElement('button')
+    el.textContent = value
+    el.classList.add('readStatus')
+    return el
+}
+
+function getBookDataFrom(form) {
+    let newBook = {}
+    newBook.title = form.title.value
+    newBook.author = form.author.value
+    newBook.pages = parseInt(form.pages.value)
+    newBook.read = form.read.checked
+    return newBook
+}
+
+const libraryTableBody = document.querySelector("#myLibrary>tbody")
+
+function getBookIndexFromHTML(targetEl) {
+    return targetEl.closest('tr[data-index]').dataset.index
+}
+
+function handleFormSubmission(event) {
+    event.preventDefault()
+    const form = event.target
+    const newBookData = getBookDataFrom(form)
+    addBookToLibrary(newBook)
+    renderLibrary(myLibrary, libraryTableBody)
+    form.reset()
+}
+
+function handleDeleteButtonClick(targetEl) {
+    const index = getBookIndexFromHTML(targetEl)
+    removeBookFromLibrary(index)
+    renderLibrary(myLibrary, libraryTableBody)
+}
+
+function handleReadToggleClick(targetEl) {
+    const index = getBookIndexFromHTML(targetEl)
+    const book = myLibrary[index]
+    book.read = !book.read
+    renderLibrary(myLibrary, libraryTableBody)
+}
+
+document.addEventListener('submit', function(e) {
+    handleFormSubmission(e)
+})
+
+document.addEventListener('click', function (e) {
+    switch (e.target.classList.value) {
+        case 'deleteBtn':
+            handleDeleteButtonClick(e.target)
+            break
+        case 'readStatus':
+            handleReadToggleClick(e.target)
+            break
+        default:
+            break
+    }
+})

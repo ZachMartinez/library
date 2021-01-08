@@ -107,7 +107,17 @@ function getBookDataFrom(form) {
     return newBook
 }
 
+function openDropdown(wrapperEl) {
+    wrapperEl.classList.remove('dropdown-closed')
+}
+
+function closeDropdown(wrapperEl) {
+    wrapperEl.classList.add('dropdown-closed')
+}
+
 const libraryTableBody = document.querySelector("#myLibrary>tbody")
+const newBookForm = document.forms.newBook
+const newBookContainer = document.querySelector("section#newBookContainer")
 
 function getBookIndexFromHTML(targetEl) {
     return targetEl.closest('tr[data-index]').dataset.index
@@ -117,9 +127,10 @@ function handleFormSubmission(event) {
     event.preventDefault()
     const form = event.target
     const newBookData = getBookDataFrom(form)
-    addBookToLibrary(newBook)
+    addBookToLibrary(newBookData)
     renderLibrary(myLibrary, libraryTableBody)
     form.reset()
+    closeDropdown(newBookContainer)
 }
 
 function handleDeleteButtonClick(targetEl) {
@@ -135,6 +146,11 @@ function handleReadToggleClick(targetEl) {
     renderLibrary(myLibrary, libraryTableBody)
 }
 
+window.onload = function() {
+    loadLibrary()
+    renderLibrary(myLibrary, libraryTableBody)
+}
+
 document.addEventListener('submit', function(e) {
     handleFormSubmission(e)
 })
@@ -147,6 +163,16 @@ document.addEventListener('click', function (e) {
         case 'readStatus':
             handleReadToggleClick(e.target)
             break
+        default:
+            break
+    }
+
+    switch (e.target.id) {
+        case 'newBookBtn':
+            openDropdown(newBookContainer)
+            break
+        case 'cancelNewBookBtn':
+            closeDropdown(newBookContainer)
         default:
             break
     }

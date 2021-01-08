@@ -1,0 +1,8 @@
+.dropdown {
+    height: auto;
+}
+
+.dropdown-closed {
+    max-height: 0;
+    overflow: hidden;
+}

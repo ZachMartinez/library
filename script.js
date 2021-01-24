@@ -83,32 +83,45 @@ function getBookIndexFromHTML(node) {
     return node.closest("tr").dataset.index
 }
 
-function handleDeleteBtn(node) {
-    const index = getBookIndexFromHTML(node) 
-    deleteBook(index, myLibrary)
-    renderLibraryTable(myLibrary, libraryTableBody)
+function handleDeleteBtn(node, library) {
+    const index = node.closest("tr").dataset.index
+    deleteBook(index, library)
 }
 
-function handleReadBtn(node) {
-    const index = getBookIndexFromHTML(node)
-    myLibrary[index].read = !myLibrary[index].read
-    renderLibraryTable(myLibrary, libraryTableBody)
+function handleReadBtn(node, library) {
+    const index = node.closest("tr").dataset.index
+    library[index].read = !library[index].read
 }
 
-function handleSubmitEvent(event) {
-    event.preventDefault()
-    const newBookData = getBookDataFrom(event.target)
-    addBook(newBookData, myLibrary)
-    renderLibraryTable(myLibrary, libraryTableBody)
+function handleSubmitEvent(node, library) {
+    const newBookData = getBookDataFrom(node)
+    addBook(newBookData, library)
+    node.reset()
 }
 
-function handleClickEvent(event) {
-    if (event.target.classList == 'deleteBtn') {
-        handleDeleteBtn(event.target)    
-    } else if (event.target.classList == 'readBtn') {
-        handleReadBtn(event.target)
+function handleClickEvent(node, library) {
+    if (node.classList == "deleteBtn") {
+        handleDeleteBtn(node, library)
+    } else if (node.classList == "readBtn") {
+        handleReadBtn(node, library)
     }
 }
 
-window.addEventListener("submit", handleSubmitEvent)
-document.addEventListener("click", handleClickEvent)
+function main() {
+    let library = []
+    const libraryTBody = document.querySelector("table#myLibrary>tbody")
+
+    window.addEventListener("submit", (e) => {
+        e.preventDefault()
+        handleSubmitEvent(e.target, library)
+        renderLibraryTable(library, libraryTBody)
+    })
+
+    document.addEventListener("click", (e) => {
+        handleClickEvent(e.target, library)
+        renderLibraryTable(library, libraryTBody)
+    })
+    console.log(library)
+}
+
+main()
